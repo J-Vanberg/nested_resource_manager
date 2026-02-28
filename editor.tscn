@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://htoby2msnxil"]
+
+[ext_resource type="Script" uid="uid://d1l6vi0wuov1a" path="res://addons/nested_resource_manager/editor.gd" id="1_nmk6h"]
+
+[node name="Editor" type="MarginContainer" unique_id=1413917249]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
+focus_mode = 2
+script = ExtResource("1_nmk6h")
+
+[node name="MainView" type="SplitContainer" parent="." unique_id=683648619]
+layout_mode = 2
+dragging_enabled = false
+vertical = true
+
+[node name="HeaderControls" type="HBoxContainer" parent="MainView" unique_id=88095207]
+layout_mode = 2
+
+[node name="LoadButton" type="Button" parent="MainView/HeaderControls" unique_id=2005686312]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Loads the currently selected node in the scene tree for editing."
+text = "Load Selected Node"
+
+[node name="PropertySelect" type="OptionButton" parent="MainView/HeaderControls" unique_id=572082902]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+tooltip_text = "Select the property to edit."
+disabled = true
+
+[node name="SaveButton" type="Button" parent="MainView/HeaderControls" unique_id=1270997646]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "Save"
+
+[node name="ResourceGraphEditor" type="GraphEdit" parent="MainView" unique_id=1391033681]
+unique_name_in_owner = true
+layout_mode = 2
+zoom_min = 0.1
+zoom_max = 1.0
+
+[node name="GraphNode" type="GraphNode" parent="MainView/ResourceGraphEditor" unique_id=461567239]
+layout_mode = 0
+offset_left = 166.0
+offset_top = 173.0
+offset_right = 246.0
+offset_bottom = 252.0
+mouse_filter = 1
+position_offset = Vector2(166, 173)
+title = "Sample"
+
+[node name="ErrorDialog" type="AcceptDialog" parent="." unique_id=506757561]
+oversampling_override = 1.0
+initial_position = 2
+size = Vector2i(250, 100)
+dialog_autowrap = true
