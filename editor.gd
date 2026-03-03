@@ -1,32 +1,29 @@
 @tool
 extends Control
 
-
 var editor_interface: Object
 var editor_plugin: EditorPlugin
 
 var current_node: Node
 var current_property: String
 
+var source_node: SourceNode
 var nodes: Array[ResourceNode]
 
-# Called when the node enters the scene tree for the first time.
+#region built-in_functions
 func _ready() -> void:
 	# Attach header controls
 	%LoadButton.pressed.connect(_on_load_pressed)
 	%PropertySelect.item_selected.connect(_on_property_selected)
 	%SaveButton.pressed.connect(_on_save_pressed)
+#endregion built-in_functions
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+#region public_functions
+#endregion public_functions
 
 
-func _on_scene_selection_changed() -> void:
-	pass
-
-
+#region private_functions
 func _on_load_pressed() -> void:
 	%PropertySelect.clear()
 
@@ -61,11 +58,18 @@ func _on_load_pressed() -> void:
 	%PropertySelect.disabled = false
 
 
+## Creates the initial source node and its first resource node.
+## Additional nodes are created recursively via the first resource node.
 func _on_property_selected(index: int) -> void:
 	current_property = %PropertySelect.get_item_text(index)
 	%PropertySelect.disabled = true
 	%LoadButton.disabled = true
 
+	source_node = SourceNode.new()
+	%ResourceGraphEditor.add_child(source_node)
+	source_node.set_source(current_node, current_property)
+
+	# Create first node, this will cascade to create the remaining nodes
 	var resource = current_node.get(current_property)
 	if not resource:
 		return
@@ -74,9 +78,12 @@ func _on_property_selected(index: int) -> void:
 	%ResourceGraphEditor.add_child(new_node)
 	nodes.append(new_node)
 
-	new_node.set_resource(resource)
-	new_node.editor_interface = editor_interface
+	new_node.set_resource(resource, %ResourceGraphEditor)
 
+	# Attach initial resource and source node
+	%ResourceGraphEditor.connect_node(source_node.name, 0, new_node.name, 0)
+
+	%ResourceGraphEditor.arrange_nodes()
 
 func _on_save_pressed() -> void:
 	pass
@@ -90,3 +97,4 @@ func _show_error(message: String) -> void:
 func _convert_resource() -> void:
 
 	pass
+#endregion private_functions

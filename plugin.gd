@@ -23,7 +23,7 @@ func _exit_tree() -> void:
 
 
 func _get_plugin_name():
-	return "VisualResourceEditor"
+	return "NestedResourceManager"
 
 
 func _make_visible(visible):

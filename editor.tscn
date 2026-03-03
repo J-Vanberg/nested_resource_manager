@@ -52,16 +52,6 @@ layout_mode = 2
 zoom_min = 0.1
 zoom_max = 1.0
 
-[node name="GraphNode" type="GraphNode" parent="MainView/ResourceGraphEditor" unique_id=461567239]
-layout_mode = 0
-offset_left = 166.0
-offset_top = 173.0
-offset_right = 246.0
-offset_bottom = 252.0
-mouse_filter = 1
-position_offset = Vector2(166, 173)
-title = "Sample"
-
 [node name="ErrorDialog" type="AcceptDialog" parent="." unique_id=506757561]
 oversampling_override = 1.0
 initial_position = 2
